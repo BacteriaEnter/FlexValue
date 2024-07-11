@@ -3,6 +3,7 @@
 FlexValue is a data structure to handle wrong character property problem which caused by buff or item  etc... in game
 ## How to Use
 Simply drag FlexValue folder in your unity project.Then drag ` FlexValueTest.cs ` script to your gameobject to see how it works.
+If you need generic version of flexvalue see ` GenericFlexTest.cs ` .
 
 ![FlexValue](https://github.com/BacteriaEnter/FlexValue/assets/64729329/0cdd4fff-2af0-426b-8127-d161dd4465ab)
 
