@@ -15,4 +15,21 @@ public class ModifierInt: ModifierBase<int>
             _ => _modifyValue
         };
     }
+    
+    public override void SetValue(int value)
+    {
+        _modifyValue = value;
+    }
+    
+    public ModifierInt()
+    {
+        
+    }
+
+    public ModifierInt(string key,int value, ModiferOperator modiferOperator)
+    {
+        this.key = key;
+        _modifyValue = value;
+        _modifierOperator = modiferOperator;
+    }
 }

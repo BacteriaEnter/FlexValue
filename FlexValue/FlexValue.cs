@@ -10,7 +10,6 @@ public abstract class FlexValue<T>
 {
     [SerializeField] protected T _value;
     public T Value => _value;
-    
 
     public abstract void RemoveModifier(string key, bool removeAll);
 

@@ -11,7 +11,8 @@ public abstract class ModifierBase<T>
     public abstract int Priority { get; }
 
     public abstract T ModifyValue(T value);
-    
+    public abstract void SetValue(T value);
+
 }
 
 public enum ModiferOperator

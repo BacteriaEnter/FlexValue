@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-using UnityEngine;
-[Serializable]
-public class FlexValueFloat:FlexValue<float>
+public class GenericFlexValue<T>
 {
-    [SerializeReference] private List<ModifierFloat> _modifiers = new List<ModifierFloat>();
+    private T _value;
+    public T Value => _value;
+    private List<ModifierBase<T>> _modifiers = new List<ModifierBase<T>>();
     
-    public void AddModifier(ModifierFloat modifier)
+    public void AddModifier(ModifierBase<T> modifier)
     {
         bool sort = true;
         if (modifier.ModifierOperator == ModiferOperator.Cover)
@@ -23,8 +22,8 @@ public class FlexValueFloat:FlexValue<float>
         
         RefreshValue(sort);
     }
-
-    public override void RemoveModifier(string key, bool removeAll)
+    
+    public void RemoveModifier(string key, bool removeAll)
     {
         if (_modifiers.All(x => x.key != key))
         {
@@ -42,10 +41,10 @@ public class FlexValueFloat:FlexValue<float>
         
         RefreshValue(true);
     }
-    
-    protected override void RefreshValue(bool sort)
+
+    private void RefreshValue(bool sort)
     {
-        _value = 0;
+        _value = default;
         if (_modifiers.Count<=0)
         {
             return;
@@ -54,6 +53,8 @@ public class FlexValueFloat:FlexValue<float>
         {
             _modifiers.Sort(ComparePriority);
         }
+
+
         foreach (var modifier in _modifiers)
         {
             _value = modifier.ModifyValue(_value);
@@ -63,6 +64,11 @@ public class FlexValueFloat:FlexValue<float>
             }
         }
     }
-    
 
+    private int ComparePriority(ModifierBase<T> x, ModifierBase<T> y)
+    {
+        if (x.Priority == y.Priority)
+            return 0;
+        return x.Priority > y.Priority ? -1 : 1;
+    }
 }

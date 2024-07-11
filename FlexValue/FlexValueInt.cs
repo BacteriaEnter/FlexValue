@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#endif
 public class FlexValueInt:FlexValue<int>
 {
     private List<ModifierInt> _modifiers = new List<ModifierInt>();
@@ -24,6 +21,7 @@ public class FlexValueInt:FlexValue<int>
         RefreshValue(sort);
     }
 
+    
     public override void RemoveModifier(string key, bool removeAll)
     {
         if (_modifiers.All(x => x.key != key))
@@ -43,18 +41,18 @@ public class FlexValueInt:FlexValue<int>
         RefreshValue(true);
     }
     
-#if ODIN_INSPECTOR
-    [Button]
-#endif
     
     protected override void RefreshValue(bool sort)
     {
+        _value = 0;
+        if (_modifiers.Count<=0)
+        {
+            return;
+        }
         if (sort)
         {
             _modifiers.Sort(ComparePriority);
         }
-
-        _value = 0;
         foreach (var modifier in _modifiers)
         {
             _value = modifier.ModifyValue(_value);

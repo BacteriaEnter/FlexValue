@@ -16,4 +16,22 @@ public class ModifierFloat : ModifierBase<float>
             _ => _modifyValue
         };
     }
+
+    public override void SetValue(float value)
+    {
+        _modifyValue = value;
+    }
+
+
+    public ModifierFloat()
+    {
+        
+    }
+
+    public ModifierFloat(string key,float value, ModiferOperator modiferOperator)
+    {
+        this.key = key;
+        _modifyValue = value;
+        _modifierOperator = modiferOperator;
+    }
 }
